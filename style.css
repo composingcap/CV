@@ -1,0 +1,81 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background: grey;
+    word-break: keep-all;
+    white-space: normal;
+
+}
+
+.titleEmphasis{
+    font-weight: bolder;
+    font-family: 'Roboto Slab', serif;
+}
+
+.cvItem{
+    margin-bottom: 6pt;
+}
+h2{
+    font-weight: bolder;
+    font-family: 'Roboto Slab', serif;
+    margin: 0pt;
+    padding: 0pt;
+    margin-bottom: 6pt;
+    margin-top: 12pt;
+}
+
+h1{
+    font-weight: bolder;
+    font-family: 'Roboto Slab', serif;
+    padding: 0pt;
+    margin: 0pt;
+}
+
+.CVHeading{
+    display: block;
+    flex-direction: row;
+    margin-bottom: 12pt;
+}
+
+a{
+    color: inherit;
+    font-style: normal;
+    text-emphasis: none;
+    text-decoration: none;
+}
+
+.CVsubtitle{
+    font-weight: bolder;
+    font-family: 'Roboto Slab', serif;
+    margin: 0pt;
+    padding: 0pt;
+    vertical-align: bottom;
+    margin-left: 36pt;
+}
+
+.page {
+    background: whitesmoke;
+    width: 8.5in;
+    margin: 1in;
+    padding: 1in;
+    box-shadow: 5px 5px black;
+}
+.cvDescription{
+    text-align: justify;
+    text-indent: 12pt;
+}
+.performanceDate{
+  margin-right:  25px;
+  min-width: 100px;
+  text-align: right;
+}
+
+@media print{
+    .page{
+    margin: 0pt;
+    padding: 0pt ;
+    box-shadow: none;
+    }
+    @page{
+        margin: 1in;
+    }
+}

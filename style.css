@@ -12,8 +12,15 @@ body{
 }
 
 .cvItem{
-    margin-bottom: 6pt;
+    margin-bottom: 8pt;
+    break-inside: avoid;
 }
+.cvList{
+    margin-left: 12pt;
+    column-count: 5;    
+    
+}
+
 h2{
     font-weight: bolder;
     font-family: 'Roboto Slab', serif;
@@ -46,10 +53,21 @@ a{
 .CVsubtitle{
     font-weight: bolder;
     font-family: 'Roboto Slab', serif;
+    font-size: 14pt;
+    margin: 0pt;
+    padding: 0pt;
+    margin-bottom: 7pt;
+    vertical-align: bottom;
+}
+
+.CVHeaderInfo{
+    font-weight: light;
+    font-family: 'Roboto Slab', serif;
     margin: 0pt;
     padding: 0pt;
     vertical-align: bottom;
-    margin-left: 36pt;
+
+    
 }
 
 .page {
@@ -61,7 +79,7 @@ a{
 }
 .cvDescription{
     text-align: justify;
-    text-indent: 12pt;
+    margin-left: 12pt;
 }
 .performanceDate{
   margin-right:  25px;

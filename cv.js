@@ -46,7 +46,10 @@ function showInfo(data, tabletop) {
                         entry+="<sp>*</sp>";
                     }
                     entry += "</span>" + "<span class=pieceDate>" + " (" + element["Year of Composition"] + ") </span> <span> for " + element["Forces"] + " </span>";
-                    entry += "</span><br><div class=cvDescription>" + element["Description"].replace(/-/g, "&#8209") + "</div></div>";
+                    if (highlightsDiv.getAttribute("description") == 'yes'){
+                    entry += "</span><br><div class=cvDescription>" + element["Description"].replace(/-/g, "&#8209") + "</div>";
+                    }
+                    entry += "</div>";
                     highlightsDiv.innerHTML += entry;
                 }
             } else {
@@ -98,19 +101,24 @@ function showInfo(data, tabletop) {
             
             
             
-            
+            if (perfomanceDiv != undefined){
             var entry = "<div class=cvItem style= \" vertical-align: text-top; display: flex\"><div class=performanceDate>" + element["Date"];
 
             entry += " </div> <div style=\"display: inline-block; text-align:left \"><span class=pieceDate><i>" + element["Piece"];
 
 
 
-            entry += "</i></span> <span> for " + element["Festival/ Event"] + " </span> at " + element["Venue"] + "<br>" + element["Performers"] + "</div></div>";
+            entry += "</i></span> <span> for " + element["Festival/ Event"] + " </span> at " + element["Venue"];
+            if (perfomanceDiv.getAttribute("performers") == "yes" && element["Performers"]!= ""){
+                entry += "<br>" + element["Performers"] + "</div>"
+            }
+            entry+= "</div>";
             if (perfomanceDiv != null) {
             perfomanceDiv.innerHTML += entry;
             }
             if(document.getElementById("completePerformances") != undefined){
                 document.getElementById("completePerformances").innerHTML += entry;
+            }
             }
 
         } else if (element["Reading"] == 1) {
@@ -274,7 +282,7 @@ function showInfo(data, tabletop) {
         if (element["Institution"] != "") {
             var entry;
             if (element["In Progress"] == 0) {
-                 entry = "<div class=cvItem>" + element["Degree"] + " from " + element["Institution"] + " " + element["End"] + "; GPA: " + element["GPA"];
+                 entry = "<div class=cvItem>" + element["Degree"] + " from " + element["Institution"] + " " + element["End"];
             } else {
                 entry = "<div class=cvItem>" + element["Degree"] + " from " + element["Institution"] + " " + element["Start"] + " - current";
             }
@@ -291,7 +299,13 @@ function showInfo(data, tabletop) {
         debug(element);
         if (element["Event Name"] != "") {
             if (document.getElementById("workedEvents") != undefined){
-            document.getElementById("workedEvents").innerHTML += "<div class=cvItem><span class=titleEmphasis><i>" + element["Event Name"] + "</i> " + element["Role"] + "</span><br><div class=cvDescription>" + element["Description"] + "</div></div>";
+             var entry = "<div class=cvItem><span class=titleEmphasis><i>" + element["Event Name"] + "</i> " + element["Role"];
+                if (document.getElementById("workedEvents").getAttribute("description") == 'yes'){
+                entry += "</span><br><div class=cvDescription>" + element["Description"] + "</div>";
+                }
+                entry += "</div>";
+                
+                document.getElementById("workedEvents").innerHTML += entry;
             }
 
         }

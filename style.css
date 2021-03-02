@@ -42,7 +42,9 @@ h1{
     flex-direction: row;
     margin-bottom: 12pt;
 }
-
+.cvSection{
+    break-inside: avoid;
+}
 a{
     color: inherit;
     font-style: normal;

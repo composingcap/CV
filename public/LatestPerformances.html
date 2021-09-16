@@ -1,0 +1,79 @@
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js'></script>
+    
+    
+        <style>
+        .dateLine{
+            margin-bottom: 10px;
+        }
+    </style>
+    
+	<body>
+        <div id=performances></div>
+</body>
+    <script>
+        const sheets = {}
+        sheets.performances = { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmdN-Hzc_qhdheDrCZyOaIaA30w9nwqjujs-RnZqQpOaZQMpm04zJ0kCf9ljrlsEdiWk5X9MwLZqn8/pub?gid=1924786898&single=true&output=csv" };
+
+
+        function init() {
+
+
+                let keys = Object.keys(sheets)
+
+                keys.forEach(key => {
+                    value = sheets[key];
+                    Papa.parse(value.url, {
+                        before: () => { },
+                        download: true,
+                        header: true,
+                        complete: (results) => {
+                            sheets[key]["data"] = results.data;
+                            //console.log(key);
+                        }
+
+                    });
+                });
+                showInfo();
+            
+        }
+  
+        function showInfo() {
+            try {
+                let performances = sheets.performances.data;
+                performances.sort(function (a, b) {
+
+                    var dateA = new Date(Date.parse(a["Date"]));
+                    var dateB = new Date(Date.parse(b["Date"]));
+                    if (dateA > dateB) {
+                        return -1;
+                    }
+                    else return 1
+                });
+                performanceCount = 0;
+                performanceContainer = document.getElementById("performances");
+                performances.forEach(function (element) {
+
+                    if (performanceCount < 10) {
+                        if (element["Reading"] != 1) {
+
+                            var performance = document.createElement("div");
+                            performance.setAttribute("class", "dateLine");
+                            performance.innerHTML = element["Date"] + " : <i>" + element["Piece"] + "</i> for " + element["Festival/ Event"] + " at " + element["Venue"];
+                            performanceCount += 1;
+                            performanceContainer.appendChild(performance.cloneNode(true));
+                        }
+
+
+
+                    }
+                });
+            }
+            catch {
+                setTimeout(showInfo, 50);
+            }
+                                 
+
+        }
+        init();
+
+    </script>

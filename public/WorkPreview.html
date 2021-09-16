@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js'></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <style>
+        .sc: {
+            margin-top: 50px;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .material-icons {
+            font-size: 12pt;
+            vertical-align: text-bottom;
+        }
+
+        .twirled {
+            max-height: 0px;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+        .descriptionText {
+            font-size: 10pt;
+        }
+
+        .downloadButton, .playButton {
+            background-color: gainsboro;
+            color: black;
+            padding: 2.5px 5px;
+            margin: 5px 0px;
+            margin-right: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            text-decoration: none !important;
+        }
+
+        .playButton {
+            background-color: #c4302b;
+            color: white !important;
+        }
+
+        .twirler {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        h3 {
+            margin-top: 5px !important;
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+    <script>
+        var SC = SC || {}; SC.Widget = function (n) { function t(r) { if (e[r]) return e[r].exports; var o = e[r] = { exports: {}, id: r, loaded: !1 }; return n[r].call(o.exports, o, o.exports, t), o.loaded = !0, o.exports } var e = {}; return t.m = n, t.c = e, t.p = "", t(0) }([function (n, t, e) { function r(n) { return !!("" === n || n && n.charCodeAt && n.substr) } function o(n) { return !!(n && n.constructor && n.call && n.apply) } function i(n) { return !(!n || 1 !== n.nodeType || "IFRAME" !== n.nodeName.toUpperCase()) } function a(n) { var t, e = !1; for (t in b) if (b.hasOwnProperty(t) && b[t] === n) { e = !0; break } return e } function s(n) { var t, e, r; for (t = 0, e = I.length; t < e && (r = n(I[t]), r !== !1); t++); } function u(n) { var t, e, r, o = ""; for ("//" === n.substr(0, 2) && (n = window.location.protocol + n), r = n.split("/"), t = 0, e = r.length; t < e && t < 3; t++)o += r[t], t < 2 && (o += "/"); return o } function c(n) { return n.contentWindow ? n.contentWindow : n.contentDocument && "parentWindow" in n.contentDocument ? n.contentDocument.parentWindow : null } function l(n) { var t, e = []; for (t in n) n.hasOwnProperty(t) && e.push(n[t]); return e } function d(n, t, e) { e.callbacks[n] = e.callbacks[n] || [], e.callbacks[n].push(t) } function E(n, t) { var e, r = !0; return t.callbacks[n] = [], s(function (t) { if (e = t.callbacks[n] || [], e.length) return r = !1, !1 }), r } function f(n, t, e) { var r, o, i = c(e); return !!i.postMessage && (r = e.getAttribute("src").split("?")[0], o = JSON.stringify({ method: n, value: t }), "//" === r.substr(0, 2) && (r = window.location.protocol + r), r = r.replace(/http:\/\/(w|wt).soundcloud.com/, "https://$1.soundcloud.com"), void i.postMessage(o, r)) } function p(n) { var t; return s(function (e) { if (e.instance === n) return t = e, !1 }), t } function h(n) { var t; return s(function (e) { if (c(e.element) === n) return t = e, !1 }), t } function v(n, t) { return function (e) { var r = o(e), i = p(this), a = !r && t ? e : null, s = r && !t ? e : null; return s && d(n, s, i), f(n, a, i.element), this } } function S(n, t, e) { var r, o, i; for (r = 0, o = t.length; r < o; r++)i = t[r], n[i] = v(i, e) } function R(n, t, e) { return n + "?url=" + t + "&" + g(e) } function g(n) { var t, e, r = []; for (t in n) n.hasOwnProperty(t) && (e = n[t], r.push(t + "=" + ("start_track" === t ? parseInt(e, 10) : e ? "true" : "false"))); return r.join("&") } function m(n, t, e) { var r, o, i = n.callbacks[t] || []; for (r = 0, o = i.length; r < o; r++)i[r].apply(n.instance, e); (a(t) || t === L.READY) && (n.callbacks[t] = []) } function w(n) { var t, e, r, o, i; try { e = JSON.parse(n.data) } catch (a) { return !1 } return t = h(n.source), r = e.method, o = e.value, (!t || A(n.origin) === A(t.domain)) && (t ? (r === L.READY && (t.isReady = !0, m(t, C), E(C, t)), r !== L.PLAY || t.playEventFired || (t.playEventFired = !0), r !== L.PLAY_PROGRESS || t.playEventFired || (t.playEventFired = !0, m(t, L.PLAY, [o])), i = [], void 0 !== o && i.push(o), void m(t, r, i)) : (r === L.READY && T.push(n.source), !1)) } function A(n) { return n.replace(Y, "") } var _, y, O, D = e(1), b = e(2), P = e(3), L = D.api, N = D.bridge, T = [], I = [], C = "__LATE_BINDING__", k = "http://wt.soundcloud.test:9200/", Y = /^http(?:s?)/; window.addEventListener ? window.addEventListener("message", w, !1) : window.attachEvent("onmessage", w), n.exports = O = function (n, t, e) { if (r(n) && (n = document.getElementById(n)), !i(n)) throw new Error("SC.Widget function should be given either iframe element or a string specifying id attribute of iframe element."); t && (e = e || {}, n.src = R(k, t, e)); var o, a, s = h(c(n)); return s && s.instance ? s.instance : (o = T.indexOf(c(n)) > -1, a = new _(n), I.push(new y(a, n, o)), a) }, O.Events = L, window.SC = window.SC || {}, window.SC.Widget = O, y = function (n, t, e) { this.instance = n, this.element = t, this.domain = u(t.getAttribute("src")), this.isReady = !!e, this.callbacks = {} }, _ = function () { }, _.prototype = { constructor: _, load: function (n, t) { if (n) { t = t || {}; var e = this, r = p(this), o = r.element, i = o.src, a = i.substr(0, i.indexOf("?")); r.isReady = !1, r.playEventFired = !1, o.onload = function () { e.bind(L.READY, function () { var n, e = r.callbacks; for (n in e) e.hasOwnProperty(n) && n !== L.READY && f(N.ADD_LISTENER, n, r.element); t.callback && t.callback() }) }, o.src = R(a, n, t) } }, bind: function (n, t) { var e = this, r = p(this); return r && r.element && (n === L.READY && r.isReady ? setTimeout(t, 1) : r.isReady ? (d(n, t, r), f(N.ADD_LISTENER, n, r.element)) : d(C, function () { e.bind(n, t) }, r)), this }, unbind: function (n) { var t, e = p(this); e && e.element && (t = E(n, e), n !== L.READY && t && f(N.REMOVE_LISTENER, n, e.element)) } }, S(_.prototype, l(b)), S(_.prototype, l(P), !0) }, function (n, t) { t.api = { LOAD_PROGRESS: "loadProgress", PLAY_PROGRESS: "playProgress", PLAY: "play", PAUSE: "pause", FINISH: "finish", SEEK: "seek", READY: "ready", OPEN_SHARE_PANEL: "sharePanelOpened", CLICK_DOWNLOAD: "downloadClicked", CLICK_BUY: "buyClicked", ERROR: "error" }, t.bridge = { REMOVE_LISTENER: "removeEventListener", ADD_LISTENER: "addEventListener" } }, function (n, t) { n.exports = { GET_VOLUME: "getVolume", GET_DURATION: "getDuration", GET_POSITION: "getPosition", GET_SOUNDS: "getSounds", GET_CURRENT_SOUND: "getCurrentSound", GET_CURRENT_SOUND_INDEX: "getCurrentSoundIndex", IS_PAUSED: "isPaused" } }, function (n, t) { n.exports = { PLAY: "play", PAUSE: "pause", TOGGLE: "toggle", SEEK_TO: "seekTo", SET_VOLUME: "setVolume", NEXT: "next", PREV: "prev", SKIP: "skip" } }]);
+    </script>
+
+</head>
+
+
+	<body >
+
+<div class="sc" style="display: none; margin-top: 10px; margin-bottom: 10px" id="soundcloudTemp">
+<iframe width="100%" height="20" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/286598672&amp;color=121212&amp;inverse=false&amp;auto_play=false&amp;show_user=true"></iframe>
+
+        </div>
+<div id=workContainer style="display: none;">
+<h2> Solo </h2>
+    <div id="solo"> </div>
+
+
+<div>
+<h2> Chamber </h2>
+    <div id="chamber"> </div>
+</div>
+ 
+<div>
+<h2> Large Ensemble </h2>
+    <div id="largeEnsemble"> </div>
+</div>
+
+<div>
+<h2> Fixed Media </h2>
+    <div id="fixedMedia"> </div>
+</div>
+
+<div>
+<h2> Installations </h2>
+    <div id="installation"> </div>
+</div>
+   </div>     
+</body>
+
+   
+<script>
+
+    const sheets = {}
+    sheets.works = { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmdN-Hzc_qhdheDrCZyOaIaA30w9nwqjujs-RnZqQpOaZQMpm04zJ0kCf9ljrlsEdiWk5X9MwLZqn8/pub?gid=0&single=true&output=csv" }
+
+    function init() {
+        let keys = Object.keys(sheets)
+
+        keys.forEach(key => {
+            value = sheets[key];
+            Papa.parse(value.url, {
+                before: () => { },
+                download: true,
+                header: true,
+                complete: (results) => {
+                    sheets[key]["data"] = results.data;
+                    //console.log(key);
+                }
+
+            });
+        });
+        showInfo();
+  }
+
+    function showInfo() {
+        try {
+            let works = sheets.works.data;
+            works.sort(function (a, b) {
+                if (a["Year of Composition"] > b["Year of Composition"]) {
+                    return -1;
+                }
+                else return 1
+            });
+            works.forEach(function (element) {
+                var divToAdd;
+                if (element["OnSite"] == 1) {
+                    if (element["Category"] == "Solo") {
+                        divToAdd = "solo";
+                    }
+                    else if (element["Category"] == "Chamber") {
+                        divToAdd = "chamber";
+                    }
+
+                    else if (element["Category"] == "Large Ensemble") {
+                        divToAdd = "largeEnsemble";
+                    }
+                    else if (element["Category"] == "Fixed Media") {
+                        divToAdd = "fixedMedia";
+                    }
+                    else if (element["Category"] == "Installation") {
+                        divToAdd = "installation";
+                    }
+                }
+
+                if (divToAdd != null) {
+                    var divString = "";
+                    var divTwirl = "";
+                    var divParam = "";
+                    if ((element["Soundcloud"] != "") || (element["Score"] != "") || (element["Youtube"] != "") || (element["Description"]) || (element["Performance Materials"] != "")) {
+                        divTwirl = "<div class=\"material-icons\">expand_more</div>";
+                        divParam = "onclick = expand(this) ";
+                        if (element["Soundcloud"] != "") {
+                            divParam += " soundcloud = " + element["Soundcloud"];
+                        }
+                        if (element["Youtube"] != "") {
+                            divParam += " youtube = " + element["Youtube"];
+                        }
+                        if (element["Score"] != "") {
+                            divParam += " score = " + element["Score"];
+                        }
+                        if (element["Description"] != "") {
+                            divParam += " description = \"" + String(element["Description"] + "\"");
+                        }
+                        if (element["Performance Materials"] != "") {
+                            divParam += " materials = \"" + String(element["Performance Materials"] + "\"");
+                        }
+                        divParam += " class= twirler"
+                    }
+                    divString = element["Piece Title"] + " (" + element["Year of Composition"] + ") for " + element["Forces"];
+                    document.getElementById(divToAdd).innerHTML += "<div><div " + divParam + " ><span>" + divString + "</span>" + divTwirl + "</div>" + "<div class=twirled></div></div>";
+                }
+
+
+            });
+
+
+            document.getElementById("workContainer").style.display = "block";
+        }
+        catch {
+            setTimeout(showInfo, 50);
+        }
+    
+    
+}
+    function expand(element){
+        parent = element.parentElement;
+        var twirlDiv = parent.children[1];
+        var icon = element.children[1];
+        icon.innerHTML = "expand_less";
+
+        if (element.getAttribute("rendered") != 1){
+            var description = element.getAttribute("description")
+            if (description !=null){
+                descriptionDiv = document.createElement("div");
+                descriptionDiv.setAttribute("class", "descriptionText");
+                descriptionDiv.innerHTML = description;
+                twirlDiv.appendChild(descriptionDiv);
+                
+            }
+                 var soundcloud = element.getAttribute("soundcloud");
+        if (soundcloud != null){
+            
+            var soundcloudDiv = document.getElementById("soundcloudTemp").cloneNode(true);
+            var widget = SC.Widget(soundcloudDiv.children[0]);
+            widget.load(soundcloud, {'color': "black"});
+            soundcloudDiv.style.display = "block";
+            twirlDiv.appendChild(soundcloudDiv)
+             
+            
+            
+        }
+            
+            var buttons = document.createElement("div");
+            buttons.style.display = "flex";
+                var score = element.getAttribute("score");
+                if (score != null){
+                    var buttonToAdd = document.createElement("a");
+                    buttonToAdd.setAttribute("class", "downloadButton")
+                    
+                    buttonToAdd.innerHTML += " <span class=\"material-icons\">get_app </span>" 
+                    buttonToAdd.innerHTML += "Score";
+                    
+                    
+                    score = score.split("/d/")[1];
+                    score = score.split("/")[0];
+                   
+                    scoreLink = "https://drive.google.com/uc?export=download&id="+score;
+                    buttonToAdd.setAttribute("href", scoreLink);
+                     buttonToAdd.setAttribute("target", "_blank")
+                     buttons.appendChild(buttonToAdd);
+                }
+                var materials = element.getAttribute("materials");
+                if (materials != null){
+                    var buttonToAdd = document.createElement("a");
+                    buttonToAdd.setAttribute("class", "downloadButton")
+                 buttonToAdd.innerHTML += " <span class=\"material-icons\">get_app </span>" 
+                    buttonToAdd.innerHTML += "Materials";
+                   
+                    
+                    materials = materials.split("/d/")[1];
+                    materials = materials.split("/")[0];
+                   
+                    materialsLink = "https://drive.google.com/uc?export=download&id="+materials;
+                    buttonToAdd.setAttribute("href", materialsLink);
+                     buttonToAdd.setAttribute("target", "_blank")
+                     buttons.appendChild(buttonToAdd);
+                }
+                 var video = element.getAttribute("youtube");
+                if (video != null){
+                    var buttonToAdd = document.createElement("a");
+                    buttonToAdd.setAttribute("class", "playButton")
+                 buttonToAdd.innerHTML += " <span class=\"material-icons\">play_arrow </span>" 
+                    buttonToAdd.innerHTML += " Video";
+    
+                   
+                    materialsLink = video;
+                    buttonToAdd.setAttribute("href", materialsLink);
+                    buttonToAdd.setAttribute("target", "_blank")
+                    
+                     buttons.appendChild(buttonToAdd);
+                }
+               
+            twirlDiv.appendChild(buttons);
+   
+
+         element.setAttribute("rendered", 1);
+        }
+                    twirlDiv.style.transition = "max-height 0.5s";
+         twirlDiv.style.maxHeight = "fit-content";
+        element.setAttribute("onclick","contract(this)");
+    }
+    
+    function contract(element){
+
+
+
+         
+        parent = element.parentElement;
+        var twirlDiv = parent.children[1];
+        
+        var scDiv = twirlDiv.children[twirlDiv.children.length-2];
+        var sciframe = scDiv.children[0];
+        if (sciframe != undefined){
+        if (sciframe.tagName == "iframe"){
+        var widget = SC.Widget(sciframe);
+        widget.pause();
+        }
+        }
+        var icon = element.children[1];
+        icon.innerHTML = "expand_more";
+        
+        twirlDiv.style.maxHeight = "0px";
+                element.setAttribute("onclick","expand(this)");
+
+
+    
+    }
+    init();
+    
+    
+    </script>
+</html>

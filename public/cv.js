@@ -62,6 +62,8 @@ function showInfo() {
         let recordings = sheets.recordings.data;
         let radio = sheets.radio.data;
 
+        let pieceTitles = [];
+
 
         //Sort by year of composition
         //console.log(sheets.works)
@@ -74,7 +76,8 @@ function showInfo() {
         var highlightsDiv = document.getElementById("highlightedWorks");
         works.forEach(function (element) {
             debug(element);
-            if (element["Piece Title"] != "") {
+            if (element["Piece Title"] != "" && !(element["Piece Title"] in pieceTitles)) {
+                pieceTitles.push(element["Piece Title"] );
                 if (element["Featured"] == "1") {
                     if (highlightsDiv != undefined) {
                         entry = "<div class=cvItem><span class=titleEmphasis>" + element["Piece Title"];

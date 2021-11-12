@@ -39,12 +39,14 @@ function init() {
 
             });
         });
-        showInfo();
+        setTimeout(showInfo, 5000);
     }
 }
 
-
+let infoPosted = false
 function showInfo() {
+    console.log("showing info...")
+    if (!infoPosted){
     try {
         let specialization = sheets.specialization.data;
         let works = sheets.works.data;
@@ -62,11 +64,11 @@ function showInfo() {
         let recordings = sheets.recordings.data;
         let radio = sheets.radio.data;
 
-        let pieceTitles = [];
 
 
-        //Sort by year of composition
-        //console.log(sheets.works)
+            
+
+
 
         works.sort(function (a, b) {
             if (a["Year of Composition"] > b["Year of Composition"]) {
@@ -75,9 +77,8 @@ function showInfo() {
         });
         var highlightsDiv = document.getElementById("highlightedWorks");
         works.forEach(function (element) {
-            debug(element);
-            if (element["Piece Title"] != "" && !(element["Piece Title"] in pieceTitles)) {
-                pieceTitles.push(element["Piece Title"] );
+            
+            if (element["Piece Title"] != "" ) {
                 if (element["Featured"] == "1") {
                     if (highlightsDiv != undefined) {
                         entry = "<div class=cvItem><span class=titleEmphasis>" + element["Piece Title"];
@@ -415,16 +416,20 @@ function showInfo() {
         });
 
 
-
+        
         document.getElementById("cv").style.display = "block";
         document.getElementById("isRendered").innerHTML = "1";
+        infoPosted = true;
     }
     
     catch(error) {
-        //console.error(error);
+        console.error(error);
         setTimeout(showInfo, 250)
     };
 }
+//
+}
+
 
 window.addEventListener('DOMContentLoaded', init);
 

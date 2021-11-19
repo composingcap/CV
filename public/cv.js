@@ -19,7 +19,7 @@ sheets.papers = { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmdN-Hz
 sheets.workshopsAndTalks = { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmdN-Hzc_qhdheDrCZyOaIaA30w9nwqjujs-RnZqQpOaZQMpm04zJ0kCf9ljrlsEdiWk5X9MwLZqn8/pub?gid=380427488&single=true&output=csv" };
 sheets.recordings = { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmdN-Hzc_qhdheDrCZyOaIaA30w9nwqjujs-RnZqQpOaZQMpm04zJ0kCf9ljrlsEdiWk5X9MwLZqn8/pub?gid=1799471077&single=true&output=csv" };
 sheets.radio = { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmdN-Hzc_qhdheDrCZyOaIaA30w9nwqjujs-RnZqQpOaZQMpm04zJ0kCf9ljrlsEdiWk5X9MwLZqn8/pub?gid=1734921203&single=true&output=csv" };
-
+sheets.awards = { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmdN-Hzc_qhdheDrCZyOaIaA30w9nwqjujs-RnZqQpOaZQMpm04zJ0kCf9ljrlsEdiWk5X9MwLZqn8/pub?gid=1874619668&single=true&output=csv" };
 
 function init() {
     if (document.getElementById("isRendered").innerHTML != "1") {
@@ -63,11 +63,15 @@ function showInfo() {
         let workshopsAndTalks = sheets.workshopsAndTalks.data;
         let recordings = sheets.recordings.data;
         let radio = sheets.radio.data;
+        let awards = sheets.awards.data;
 
 
 
-            
+        let awardsDiv = document.getElementById("awards");
+        awards.forEach(function (element) {
+            awardsDiv.innerHTML += "<div class=cvItem><span class=titleEmphasis>"+ element["Name"] + " "+ element["Year"] + ":</span> " + element["Prize"] + "</div>"; 
 
+        });
 
 
         works.sort(function (a, b) {
@@ -77,8 +81,8 @@ function showInfo() {
         });
         var highlightsDiv = document.getElementById("highlightedWorks");
         works.forEach(function (element) {
-            
-            if (element["Piece Title"] != "" ) {
+       
+            if (element["Piece Title"] != "" &&element["Ignore"]!=1) {
                 if (element["Featured"] == "1") {
                     if (highlightsDiv != undefined) {
                         entry = "<div class=cvItem><span class=titleEmphasis>" + element["Piece Title"];
@@ -134,8 +138,20 @@ function showInfo() {
         });
 
         performances.forEach(function (element) {
+            console.log(element);
+
             debug(element);
-            if (element["Piece Title"] != "" && element["Reading"] != 1) {
+            if (element["Piece"]  != ""){
+                let work = works.find(obj => {
+
+                    return obj["Piece Title"] === element["Piece"];
+                    
+                });
+                console.log(work)
+                if (work == undefined || work["Ignore"]==1) return;
+
+            }
+            if (element["Piece"] != "" && element["Reading"] != 1) {
                 if (element["Juried"] == 1) {
                     //entry += "<sup>*</sup>";
                     perfomanceDiv = document.getElementById("highlightedPerformances");

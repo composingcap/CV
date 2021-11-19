@@ -434,6 +434,7 @@ function showInfo() {
 
         
         document.getElementById("cv").style.display = "block";
+        document.getElementById("wait").style.display = "none";
         document.getElementById("isRendered").innerHTML = "1";
         infoPosted = true;
     }

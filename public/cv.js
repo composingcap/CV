@@ -311,7 +311,7 @@ function showInfo() {
                     softwareDiv.innerHTML += "<div class=cvItem><span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> "  + element["Type"];
                     
                     if (element["ShowDescription"] == 1)
-                    softwareDiv.innerHTML += +" <br><div class=cvDescription>" + element["Description"] + "</div>";
+                    softwareDiv.innerHTML += " <div class=cvDescription>" + element["Description"] + "</div>";
                 }
                 softwareDiv.innerHTML += "</div>";
             });

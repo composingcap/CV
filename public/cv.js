@@ -308,8 +308,12 @@ function showInfo() {
             software.forEach(function (element) {
                 debug(element);
                 if (element["Name"] != "") {
-                    softwareDiv.innerHTML += "<div class=cvItem><span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> "  + element["Type"] +" <br><div class=cvDescription>" + element["Description"] + "</div>" + "</div>";
+                    softwareDiv.innerHTML += "<div class=cvItem><span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> "  + element["Type"];
+                    
+                    if (element["ShowDescription"] == 1)
+                    softwareDiv.innerHTML += +" <br><div class=cvDescription>" + element["Description"] + "</div>";
                 }
+                softwareDiv.innerHTML += "</div>";
             });
         }
         /*specialization.forEach(function(element) {

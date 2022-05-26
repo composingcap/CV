@@ -12,6 +12,7 @@ body{
 }
 
 .cvItem{
+    margin-top: 4pt;
     margin-bottom: 8pt;
     break-inside: avoid;
 }
@@ -80,6 +81,7 @@ a{
     box-shadow: 5px 5px black;
 }
 .cvDescription{
+    margin-top: 0pt;
     text-align: justify;
     margin-left: 12pt;
 }

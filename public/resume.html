@@ -1,0 +1,96 @@
+<head>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js'></script>
+
+    <script type='text/javascript' src="cv.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href='style.css'>
+
+</head>
+
+<body>
+    
+    <div class="page">
+        <div class="CVHeading">
+            <h1 style="margin-bottom: 10pt">
+                Christopher Poovey
+            </h1>
+            <div class="CVsubtitle">
+                Composer | Creative Coder | Media Artist
+            </div>
+            <div class="CVHeaderInfo">
+                ChristopherPoovey@gmail.com | 469-733-7047 | ChristopherPoovey.com
+            </div>
+        </div>
+        <div class = CVHeaderInfo id="wait" style="display: block">
+            <hr style="width:100%;text-align:left;margin-left:0">
+            generating... please wait
+            <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+            
+        <div id="cv" style="display: none">
+            <div class="cvSection">
+                <h2>Work Experience</h2>
+                <div id="jobs" resume="true"> </div>
+            </div>
+            <div class="cvSection">
+            <h2>Education</h2>
+            <div id="education"> </div>
+            </div>
+            <div class="cvSection">
+
+            <h2>Awards</h2>
+            <div id="awards"> </div>
+            </div>
+
+
+
+            <div class="cvSection">
+                <h2>Skills</h2>
+                <div class=cvList style="margin-bottom: 10pt; font-size: 10pt">
+                    <div><sup>* </sup>Expert</div>
+                    <div><sup>+ </sup>Advanced</div>
+                </div>
+                <div id="skills" class=cvList> </div>
+            </div>
+
+            <div class="cvSection">
+                <h2>Select Software Development</h2>
+                <div id="software" resume=true> </div>
+            </div>
+
+            <div class="cvSection">
+                <h2>Academic Writing</h2>
+                <div id="publication">
+                </div>
+            </div>
+
+            <div class="cvSection">
+                <h2>Workshops and Talks</h2>
+                <div id="workshopsAndTalks"> </div>
+            </div>
+
+            <div class="cvSection" style="break-inside: auto;">
+                <h2>Select Compositions and Digital Artworks</h2>
+                <div id="highlightedWorks" description="no" commissionStar="no"> </div>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <div id="isRendered" style="display: none">0</div>
+
+
+    <!---
+    <h2>Highlighted Research</h2>
+         <div id="hilightedReasearch"> </div>
+
+    <h2>Conferences</h2>
+      <div id="conferences"> </div>
+    -->
+
+</body>

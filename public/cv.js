@@ -85,9 +85,20 @@ function showInfo() {
             if (element["Piece Title"] != "" &&element["Ignore"]!=1) {
                 if (element["Featured"] == "1") {
                     if (highlightsDiv != undefined) {
-                        entry = "<div class=cvItem><span class=titleEmphasis>" + element["Piece Title"];
+                        entry = "<div class=cvItem><span class=titleEmphasis>"
+                        if (element["Youtube"] != "") {
+                            entry += "<a target=_blank href=" + element["Youtube"]+">"+element["Piece Title"]+"</a>";
+                        }
+                        else if (element["Soundcloud"] != ""){
+                            entry += "<a target=_blank  href=" + element["Soundcloud"] + ">" + element["Piece Title"] + "</a>";
+                        }
+                        else {
+                            entry += element["Piece Title"];
+
+                        }
                         if (element["Commissioned"] == 1) {
-                            entry += "<sp>*</sp>";
+                            if (highlightsDiv.getAttribute("commissionStar") == "no") { }
+                            else { entry += "<sp>*</sp>" };
                         }
                         entry += "</span>" + "<span class=pieceDate>" + " (" + element["Year of Composition"] + ") </span> <span> for " + element["Forces"] + " </span>";
                         if (highlightsDiv.getAttribute("description") == 'yes') {
@@ -165,11 +176,19 @@ function showInfo() {
                 if (perfomanceDiv != undefined) {
                     var entry = "<div class=cvItem style= \" vertical-align: text-top; display: flex\"><div class=performanceDate>" + element["Date"];
 
-                    entry += " </div> <div style=\"display: inline-block; text-align:left \"><span class=pieceDate><i>" + element["Piece"];
+                    entry += " </div> <div style=\"display: inline-block; text-align:left \"><span class=pieceDate>"
+
+                    if (element["Movement"] != ""){
+                        entry += "'" + element["Movement"] +"' from ";
+                    }
+                    entry += "<i>" + element["Piece"];
 
 
 
-                    entry += "</i></span> <span> for " + element["Festival/ Event"] + " </span> at " + element["Venue"];
+                    entry += "</i></span> <span> | " + element["Festival/ Event"]+ " </span> ";
+                    if (element["Venue"] != ""){
+                        entry += "<span> at " + element["Venue"] +"</span>";
+                    }
                     if (perfomanceDiv.getAttribute("performers") == "yes" && element["Performers"] != "") {
                         entry += "<br>" + element["Performers"] + "</div>"
                     }
@@ -307,11 +326,25 @@ function showInfo() {
             });
             software.forEach(function (element) {
                 debug(element);
+                if (softwareDiv.getAttribute("resume") == "true") {
+                    if (element["UseInResume"] != "1") {
+                        return
+                    }
+                }
                 if (element["Name"] != "") {
-                    softwareDiv.innerHTML += "<div class=cvItem><span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> "  + element["Type"];
-                    
-                    if (element["ShowDescription"] == 1)
-                    softwareDiv.innerHTML += " <div class=cvDescription>" + element["Description"] + "</div>";
+                    softwareDiv.innerHTML += "<div class=cvItem>"
+                    if (softwareDiv.getAttribute("resume") == "true"){
+                        softwareDiv.innerHTML += "<span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> " + element["ShortDescription"];
+
+                    }
+                    else {
+                        softwareDiv.innerHTML += "<span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> " + "<span>"+element["Type"]+"</span>";
+
+                        if (element["ShowDescription"] == 1) {
+
+                            softwareDiv.innerHTML += " <div class=cvDescription>" + element["Description"] + "</div>";
+                        }
+                    }
                 }
                 softwareDiv.innerHTML += "</div>";
             });
@@ -349,7 +382,7 @@ function showInfo() {
                 if (element["In Progress"] == 0) {
                     entry = "<div class=cvItem> <b>" + element["Degree"] + " from " + element["Institution"] + ":</b> " + element["End"];
                 } else {
-                    entry = "<div class=cvItem> <b>" + element["Degree"] + " from " + element["Institution"] + ":</b> August " + element["End"] + " (expected)";
+                    entry = "<div class=cvItem> <b>" + element["Degree"] + " from " + element["Institution"] + ":</b> August " + element["End"] + " (confirmed)";
                 }
                 if (element["Studied With"] != "") {
                     entry += "<br><span style=\" margin-left : 10px \">Studied with: " + element["Studied With"] + "</span>";
@@ -380,7 +413,22 @@ function showInfo() {
             debug(element);
             if (element["Job"] != "" && element["Important"] == 1) {
 
-                entry = "<div class=cvItem><span class=titleEmphasis>" + element["Job"] + ": </span> " + element["Dates"] + "<br> <div class=cvDescription>" + element["Description"] + "</div></div>"; 
+                entry = "<div class=cvItem><span class=titleEmphasis>" + element["Job"] + ": </span> " + element["Dates"] + "<br><div class=cvDescription>"
+                if (softwareDiv.getAttribute("resume") == "true") {
+                    entry += " " + element["ShortDescription"]; 
+                }
+                    else{
+                    entry += " " + element["Description"]; 
+                    }
+
+                if(element["Superviser"] != "" && element["Superviser"] != undefined){
+                    entry += "<br>Supervisor: "  + element["Superviser"] + " | " + element["Contact"];
+                }
+                entry += "</div></div>";
+                if (document.getElementById("jobs") != undefined) {
+                    document.getElementById("jobs").innerHTML += entry;
+                }
+                
                 if (element["Research"] == 1) {
                     if (document.getElementById("reasearchExperience") != undefined) {
                         document.getElementById("reasearchExperience").innerHTML += entry;

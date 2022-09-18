@@ -14,11 +14,12 @@ body{
 .cvItem{
     margin-top: 4pt;
     margin-bottom: 4pt;
-    break-inside: avoid;
+    break-inside: avoid-page;
 }
 .cvList{
     margin-left: 12pt;
     column-count: 5;    
+    break-inside: avoid-page;
     
 }
 

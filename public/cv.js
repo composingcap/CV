@@ -338,21 +338,23 @@ function showInfo() {
                     }
                 }
                 if (element["Name"] != "") {
-                    softwareDiv.innerHTML += "<div class=cvItem>"
+                    entry = "<div class=cvItem>"
                     if (softwareDiv.getAttribute("resume") == "true"){
-                        softwareDiv.innerHTML += "<span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> " + element["ShortDescription"];
+                        entry += "<span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> " + element["ShortDescription"];
 
                     }
                     else {
-                        softwareDiv.innerHTML += "<span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> " + "<span>"+element["Type"]+"</span>";
+                        entry += "<span class=titleEmphasis><a target = _blank href=" + element["Link"] + ">" + element["Name"] + " (" + element["Date"] + ")-</a> </span> " + "<span>"+element["Type"]+"</span>";
 
-                        if (element["ShowDescription"] == 1) {
+                        if (true) {
 
-                            softwareDiv.innerHTML += " <div class=cvDescription>" + element["Description"] + "</div>";
+                            entry += " <div class=cvDescription>" + element["ShortDescription"] + "</div>";
                         }
                     }
+                    entry += "</div>";
+                    softwareDiv.innerHTML+= entry;
                 }
-                softwareDiv.innerHTML += "</div>";
+                
             });
         }
         /*specialization.forEach(function(element) {

@@ -44,7 +44,6 @@ h1{
     margin-bottom: 12pt;
 }
 .cvSection{
-    break-inside: avoid;
 }
 a{
     color: inherit;

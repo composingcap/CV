@@ -13,7 +13,7 @@ body{
 
 .cvItem{
     margin-top: 4pt;
-    margin-bottom: 8pt;
+    margin-bottom: 4pt;
     break-inside: avoid;
 }
 .cvList{
@@ -72,7 +72,9 @@ a{
 
     
 }
-
+.extraInfo{
+    margin : 0pt;
+}
 .page {
     background: whitesmoke;
     width: 8.5in;
@@ -81,9 +83,11 @@ a{
     box-shadow: 5px 5px black;
 }
 .cvDescription{
-    margin-top: 0pt;
+    margin-top: 2pt;
     text-align: justify;
     margin-left: 12pt;
+    margin-bottom: 0pt;
+    font-size: 10pt;
 }
 .performanceDate{
   margin-right:  25px;

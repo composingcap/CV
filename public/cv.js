@@ -86,9 +86,11 @@ function showInfo() {
             } else return 1
         });
         var highlightsDiv = document.getElementById("highlightedWorks");
+        techFlag = highlightsDiv.getAttribute("tech"); 
         works.forEach(function (element) {
-       
-            if (element["Piece Title"] != "" &&element["Ignore"]!=1) {
+            if (techFlag) techIgnore = element["TechResume"]==1;
+            else techIgnore = true;
+            if (element["Piece Title"] != "" &&element["Ignore"]!=1 && techIgnore) {
                 if (element["Featured"] == "1") {
                     if (highlightsDiv != undefined) {
                         entry = "<div class=cvItem><span class=titleEmphasis>"
@@ -111,21 +113,46 @@ function showInfo() {
                             if (element["CV Description"] != "")  {
                                 entry += "</span><br><div class=cvDescription>" + element["CV Description"].replace(/-/g, "&#8209") + "</div>";
                             }
+                           
                             else {
                                 entry += "</span><br><div class=cvDescription>" + element["Description"].replace(/-/g, "&#8209") + "</div>";
                             }
+                        }
+                        else if(highlightsDiv.getAttribute("description") == 'short'){
+                            entry += "</span><br><div class=cvDescription>" + element["Short Description"].replace(/-/g, "&#8209") + "</div>";
+
                         }
                         entry += "</div>";
                         highlightsDiv.innerHTML += entry;
                     }
                 } else {
-                    entry = "<div class=cvItem><span class=titleEmphasis>" + element["Piece Title"];
+                    entry = "<div class=cvItem><span class=titleEmphasis>"
+                        if (element["Youtube"] != "") {
+                            entry += "<a target=_blank href=" + element["Youtube"]+">"+element["Piece Title"]+"</a>";
+                        }
+                        else if (element["Soundcloud"] != ""){
+                            entry += "<a target=_blank  href=" + element["Soundcloud"] + ">" + element["Piece Title"] + "</a>";
+                        }
+                        else {
+                            entry += element["Piece Title"];
+
+                        }
+                        if (element["Commissioned"] == 1) {
+                            if (highlightsDiv.getAttribute("commissionStar") == "no") { }
+                            else { entry += "<sp>*</sp>" };
+                        }
+                        entry += "</span>" + "<span class=pieceDate>" + " (" + element["Year of Composition"] + ") </span> <span> for " + element["Forces"] + " </span>";
                     if (element["Commissioned"] == 1) {
                         entry += "<sp>*</sp>";
                     }
                     entry += "</span>" + "<span class=pieceDate>" + " (" + element["Year of Composition"] + ") </span> <span> for " + element["Forces"] + " </span></div>";
                     if (document.getElementById("listOfWorks") != undefined) {
+                        if(document.getElementById("listOfWorks").getAttribute("description") == 'short'){
+                            entry += "<div class=cvDescription>" + element["Short Description"].replace(/-/g, "&#8209") + "</div>";
+    
+                        }
                         document.getElementById("listOfWorks").innerHTML += entry;
+                        
                     }
                 }
                 if (document.getElementById("completeWorks") != undefined) {
@@ -134,6 +161,8 @@ function showInfo() {
                         entry += "<sp>*</sp>";
                     }
                     entry += "</span>" + "<span class=pieceDate>" + " (" + element["Year of Composition"] + ") </span> <span> for " + element["Forces"] + " </span></div>";
+                 
+                    
                     document.getElementById("completeWorks").innerHTML += entry;
 
                 }
@@ -363,25 +392,33 @@ function showInfo() {
             document.getElementById("researchSpecialization").innerHTML += "<div class=cvItem><span class=titleEmphasis>" + element["Name"] + "</span><br><div class=cvDescription>" + element["Description"] + "</div></div>";
           }
         });*/
+        
         var skillsDiv = document.getElementById("skills");
+        techFlag = skillsDiv.getAttribute("tech") == "true";
         if (skillsDiv != undefined) {
             skills.forEach(function (element) {
                 //debug(element);
                 if (element["Skill"] != "") {
+
+                    var level = element["Level"] 
+                    if (techFlag) level = element["TechLevel"] 
+                    if (level > 0){
                     var entry = "<div class=cvItem><span>" + element["Skill"];
-                    if (element["Level"] == 3) {
+                    if (level == 3) {
                         entry += "<sup>*</sup>"
-                    } else if (element["Level"] == 2) {
+                    } else if (level == 2) {
                         entry += "<sup>+</sup>"
                     }
                     entry += "</span>" + "</div>";
                     skillsDiv.innerHTML += entry;
+                }
 
                 }
 
             });
         }
 
+        resFlag =  (document.getElementById("education").getAttribute("resume") == "true");
 
         education.forEach(function (element) {
             //debug(element);
@@ -392,7 +429,7 @@ function showInfo() {
                 } else {
                     entry = "<div class=cvItem> <b>" + element["Degree"] + " from " + element["Institution"] + ":</b> August " + element["End"] + " (confirmed)";
                 }
-                if (element["Studied With"] != "") {
+                if (element["Studied With"] != "" && !resFlag) {
                     entry += "<br><span style=\" margin-left : 10px \">Studied with: " + element["Studied With"] + "</span>";
                 }
                 if (document.getElementById("education") != undefined) {
@@ -400,13 +437,13 @@ function showInfo() {
                 }
             }
         });
-
+        resFlag = document.getElementById("workedEvents").getAttribute("resume") == "true";
         events.forEach(function (element) {
             //debug(element);
             if (element["Event Name"] != "") {
                 if (document.getElementById("workedEvents") != undefined) {
                     var entry = "<div class=cvItem><span class=titleEmphasis>" + element["Event Name"] + " " + element["Role"];
-                    if (document.getElementById("workedEvents").getAttribute("description") == 'yes') {
+                    if (document.getElementById("workedEvents").getAttribute("description") == 'yes' && !resFlag) {
                         entry += "</span><br><div class=cvDescription>" + element["Description"] + "</div>";
                     }
                     entry += "</div>";
@@ -460,10 +497,11 @@ function showInfo() {
 
 
         });
-
+        resFlag = document.getElementById("teachingExperience").getAttribute("resume") == "true";
         courses.forEach(function(element){
             debug(element);
-            entry = "<div class=cvItem><span class=titleEmphasis>"+ element["Title"] + "</span> | "+ element["Institution"]  + " "+ element["Dates"] + "<br><div class=cvDescription>"+element["Description"]+"</div></div>";
+            entry = "<div class=cvItem><span class=titleEmphasis>"+ element["Title"] + "</span> | "+ element["Institution"]  + " "+ element["Dates"] 
+            if (!resFlag) entry += "<br><div class=cvDescription>"+element["Description"]+"</div></div>";
             document.getElementById("teachingExperience").innerHTML += entry;
 
 

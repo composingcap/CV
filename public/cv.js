@@ -71,18 +71,20 @@ function showInfo() {
 
 
         let awardsDiv = document.getElementById("awards");
-        awards.forEach(function (element) {
+        if(awardsDiv!= null){
+        awards?.forEach(function (element) {
             awardsDiv.innerHTML += "<div class=cvItem><span class=titleEmphasis>"+ element["Name"] + " "+ element["Year"] + ":</span> " + element["Prize"] + "</div>"; 
 
-        });
+        });}
 
 
         let workDiv = document.getElementById("workExperinece");
+        if(workDiv!= null){
+
         workExperience.forEach((element)=>{
-
             workDiv.innerHTML += "<div class=cvItem><span class=titleEmphasis>" + element["Title"] + "</span> at " + element["Institution"] + " (" +element["Dates"] + ")</div>";
-
         });
+    }
 
 
         works.sort(function (a, b) {
@@ -507,7 +509,7 @@ function showInfo() {
     
     catch(error) {
         console.error(error);
-        setTimeout(showInfo, 250)
+        //setTimeout(showInfo, 250)
     };
 }
 //
